@@ -3,8 +3,8 @@
 #########################################################################
 (c)2013 Giacomo Drago <giacomo@giacomodrago.com>
 
-Ruzzle Solver PRO is an opensource offline solver for Ruzzle puzzles
-written in Java.
+Ruzzle Solver PRO is an opensource offline solver (aka cheater) for
+Ruzzle puzzles written in Java.
 
 It aims to be usable, fast and easy to extend and improve for both
 users and developers thanks to a sensible and modular design.
