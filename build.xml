@@ -1,0 +1,48 @@
+<?xml version="1.0" ?> 
+<project name="RuzzleSolverPro" default="jar">
+
+	<property name="version" value="1.0beta4"/>
+
+    <property name="dist.name" value="${ant.project.name}_${version}.zip"/>
+    <property name="jar.name" value="${ant.project.name}.jar"/>
+    <property name="mainclass" value="com.giacomodrago.ruzzlesolverpro.RuzzleSolverPro"/>
+		
+    <target name="compile">
+		<mkdir dir="build" />
+        <javac target="1.6" source="1.6" destdir="build" debug="true" srcdir="src" />
+        <copy todir="build">
+            <fileset dir="src" includes="**/*.properties"/>
+            <fileset dir="src" includes="**/*.png"/>
+        </copy>
+    </target>
+	
+    <target name="jar" depends="compile">
+        <mkdir dir="dist" />
+        <jar destfile="dist/${jar.name}" basedir="build">
+            <manifest>
+                <attribute name="Main-Class" value="${mainclass}"/>
+            </manifest>
+        </jar>
+    </target>
+    
+    <target name="dist" depends="jar">
+        <copy todir="dist">
+            <fileset dir="." includes="*.TXT, *.ini, languages/**"/>
+        </copy>
+    </target>
+    
+    <target name="packdist" depends="dist">
+        <zip destfile="${dist.name}" basedir="dist" />
+    </target>
+		
+    <target name="run" depends="jar">
+        <java jar="dist/${jar.name}" fork="true"/>
+    </target>
+        
+    <target name="clean">
+		<delete file="${dist.name}" />
+        <delete dir="build" />
+        <delete dir="dist" />
+    </target>
+
+</project>
