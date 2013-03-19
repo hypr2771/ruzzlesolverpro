@@ -27,6 +27,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -93,15 +94,14 @@ public final class RuzzleSolverPro {
 	private static final int CLEAR_BUTTON_HEIGHT = 40;
 	private static final int CONTROLS_FONT_SIZE = 14;
 	private static final int LABELS_FONT_SIZE = 12;
-	private static final String DEFAULT_MIN_WORD_LENGTH = "3";
-	private static final String DEFAULT_MAX_WORD_LENGTH = "16";
-	private static final String HELP_TEXT =
-			"Keys for bonuses:\u2003" +
-			"1 = DL\u2003" +
-			"2 = TL\u2003" +
-			"3 = DW\u2003" +
-			"4 = TW\u2003" +
-			"0 = none\u2003";
+	private static final int DEFAULT_MIN_WORD_LENGTH = 3;
+	private static final int DEFAULT_MAX_WORD_LENGTH = 16;
+	private static final String HELP_TEXT = "Keys for bonuses:\u2003" + 
+			BONUS_DL_CHAR + " = DL\u2003" +
+			BONUS_TL_CHAR + " = TL\u2003" +
+			BONUS_DW_CHAR + " = DW\u2003" +
+			BONUS_TW_CHAR + " = TW\u2003" +
+			BONUS_NONE_CHAR + " = none\u2003";
 	private static final String WEBSITE_URI = "http://8t88.biz/RSP";
 	private static final boolean MULTITHREADED_SOLVER = true;
 
@@ -135,9 +135,9 @@ public final class RuzzleSolverPro {
 		}
 
 		int minWordLength = Integer.parseInt(settings.getProperty(
-				"min_word_length", DEFAULT_MIN_WORD_LENGTH));
+				"min_word_length", Integer.toString(DEFAULT_MIN_WORD_LENGTH)));
 		int maxWordLength = Integer.parseInt(settings.getProperty(
-				"max_word_length", DEFAULT_MAX_WORD_LENGTH));
+				"max_word_length", Integer.toString(DEFAULT_MAX_WORD_LENGTH)));
 		String[] postprocessorsClasses = settings.getProperty("postprocessors",
 				"").split(" ");
 
@@ -155,7 +155,7 @@ public final class RuzzleSolverPro {
 		for (String subdirectory : subDirectories) {
 			languages.add(subdirectory);
 		}
-		
+
 		// Set current language
 		String language = preferences.get("language", DEFAULT_LANGUAGE);
 		setLanguage(language);
@@ -300,6 +300,7 @@ public final class RuzzleSolverPro {
 		cellTextFields[0].requestFocus();
 
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JOptionPane.setDefaultLocale(Locale.US);
 
 	}
 
@@ -459,24 +460,24 @@ public final class RuzzleSolverPro {
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			
+
 			if (e.getStateChange() != ItemEvent.SELECTED) {
 				return;
 			}
-			
+
 			String language = languageSelector.getItemAt(languageSelector
 					.getSelectedIndex());
-			
+
 			clear(false);
 			Cursor defaultCursor = window.getCursor();
 			window.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-			
+
 			setLanguage(language);
-			
+
 			window.setCursor(defaultCursor);
-			
+
 			cellTextFields[0].requestFocus();
-			
+
 		}
 
 	}
