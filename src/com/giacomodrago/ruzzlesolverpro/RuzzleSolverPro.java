@@ -608,6 +608,8 @@ public final class RuzzleSolverPro {
 				clear(false);
 
 			} else {
+				
+				boolean clear = true;
 
 				switch (letter) {
 				case BONUS_DL_CHAR:
@@ -625,9 +627,13 @@ public final class RuzzleSolverPro {
 				case BONUS_NONE_CHAR:
 					cell.setBonus(null);
 					break;
+				default:
+					clear = false;
 				}
 
-				clear(false);
+				if (clear) {
+					clear(false);
+				}
 
 			}
 
