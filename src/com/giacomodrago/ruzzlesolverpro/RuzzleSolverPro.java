@@ -565,9 +565,8 @@ public final class RuzzleSolverPro {
 		public void keyTyped(KeyEvent e) {
 
 			int keyCode = e.getKeyCode();
-
-			if (keyCode == KeyEvent.VK_ALT
-					|| (e.getModifiers() & KeyEvent.ALT_DOWN_MASK) == KeyEvent.ALT_DOWN_MASK) {
+			
+			if (keyCode == KeyEvent.VK_ALT || e.isAltDown()) {
 				return;
 			}
 
