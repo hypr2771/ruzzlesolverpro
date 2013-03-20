@@ -67,7 +67,7 @@ import com.giacomodrago.ruzzlesolverpro.solver.Solver;
 public final class RuzzleSolverPro {
 
 	private static final String PROGRAM_NAME = "Ruzzle Solver PRO";
-	private static final String PROGRAM_VERSION = "v1.0 beta 4";
+	private static final String PROGRAM_VERSION = "v1.0 beta 5";
 
 	private static final boolean EXTENDED_DEBUG = false;
 	private static final int GAME_SIZE = 4; // 4x4
