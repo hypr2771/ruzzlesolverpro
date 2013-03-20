@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
@@ -96,12 +98,10 @@ public final class RuzzleSolverPro {
 	private static final int LABELS_FONT_SIZE = 12;
 	private static final int DEFAULT_MIN_WORD_LENGTH = 3;
 	private static final int DEFAULT_MAX_WORD_LENGTH = 16;
-	private static final String HELP_TEXT = "Keys for bonuses:\u2003" + 
-			BONUS_DL_CHAR + " = DL\u2003" +
-			BONUS_TL_CHAR + " = TL\u2003" +
-			BONUS_DW_CHAR + " = DW\u2003" +
-			BONUS_TW_CHAR + " = TW\u2003" +
-			BONUS_NONE_CHAR + " = none\u2003";
+	private static final String HELP_TEXT = "Keys for bonuses:\u2003"
+			+ BONUS_DL_CHAR + " = DL\u2003" + BONUS_TL_CHAR + " = TL\u2003"
+			+ BONUS_DW_CHAR + " = DW\u2003" + BONUS_TW_CHAR + " = TW\u2003"
+			+ BONUS_NONE_CHAR + " = none\u2003";
 	private static final String WEBSITE_URI = "http://8t88.biz/RSP";
 	private static final boolean MULTITHREADED_SOLVER = true;
 
@@ -292,8 +292,8 @@ public final class RuzzleSolverPro {
 
 		window = new JFrame(PROGRAM_NAME + " " + PROGRAM_VERSION);
 		window.add(mainPanel);
-
 		window.setResizable(false);
+		window.getContentPane();
 		window.pack();
 		window.setLocationRelativeTo(null);
 
@@ -301,6 +301,19 @@ public final class RuzzleSolverPro {
 
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JOptionPane.setDefaultLocale(Locale.US);
+		
+		KeyboardFocusManager.getCurrentKeyboardFocusManager()
+		.addKeyEventDispatcher(new KeyEventDispatcher() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent e) {
+				if (e.getID() == KeyEvent.KEY_PRESSED && 
+						e.getKeyCode() == KeyEvent.VK_F1) {
+					about();
+					return true;
+				}
+				return false;
+			}
+		});
 
 	}
 
@@ -496,8 +509,8 @@ public final class RuzzleSolverPro {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_SPACE || 
-					e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (e.getKeyCode() == KeyEvent.VK_SPACE
+					|| e.getKeyCode() == KeyEvent.VK_ENTER) {
 				robot.keyPress(KeyEvent.VK_DOWN);
 			}
 		}
@@ -566,7 +579,7 @@ public final class RuzzleSolverPro {
 		public void keyTyped(KeyEvent e) {
 
 			int keyCode = e.getKeyCode();
-			
+
 			if (keyCode == KeyEvent.VK_ALT || e.isAltDown()) {
 				return;
 			}
