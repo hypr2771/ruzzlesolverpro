@@ -35,6 +35,7 @@ class CellSolver implements Runnable {
 		LinkedList<Cell> currentPath = new LinkedList<Cell>();
 		currentPath.add(cell);
 		Set<Cell> traversedCellsSet = new HashSet<Cell>();
+		traversedCellsSet.add(cell);
 		findPaths(cell, dictNode, currentPath, traversedCellsSet, paths);
 
 	}
