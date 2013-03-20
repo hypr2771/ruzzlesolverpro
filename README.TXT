@@ -8,7 +8,7 @@ Ruzzle puzzles written in Java.
 
 It aims to be usable, fast and easy to extend and improve for both
 users and developers thanks to a sensible and modular design.
-It allows to add, replace or update the words dictionaries and the score
+It allows to add, replace or update the dictionaries and the score
 tables, thus supporting an arbitrary number of languages.
 
 Visit the program website for more information and usage instructions:
