@@ -13,16 +13,18 @@ import java.util.TreeSet;
 
 public class DictionaryBuilder {
 
-	private static final String INPUT_DIRECTORY = "dict_sources";
-	private static final String OUTPUT_FILE = "dict_output.txt";
+	private static final int MAX_WORD_LENGTH = 16;
+	
+	public static void main(String[] args) throws IOException {
 
-	public static void main(String[] argv) throws IOException {
-
-		File destFile = new File(OUTPUT_FILE);
+		String inputDirectory = args[0];
+		String outputFile = args[1];
+		
+		File destFile = new File(outputFile);
 		PrintWriter writer = new PrintWriter(
 				new OutputStreamWriter(new FileOutputStream(destFile)), true);
 		
-		File folder = new File(INPUT_DIRECTORY);
+		File folder = new File(inputDirectory);
 		File[] listOfFiles = folder.listFiles();
 		Set<String> words = new TreeSet<String>();
 
@@ -36,8 +38,12 @@ public class DictionaryBuilder {
 					new InputStreamReader(new FileInputStream(f)));
 			String word;
 			while ((word = br.readLine()) != null) {
-				word = word.trim().toLowerCase();
-				if (!word.isEmpty() && !words.contains(word)) {
+				word = word.trim().toLowerCase(); // Word to lower case
+				// Replace ß (for German)
+				word = word.replaceAll("ß", "ss");
+				if (!word.isEmpty() && word.length() <= MAX_WORD_LENGTH && !words.contains(word)) {
+					// Remove dashes and apostrophes
+					word = word.replaceAll("['-]", "");
 					words.add(word);
 				}
 			}
@@ -48,7 +54,7 @@ public class DictionaryBuilder {
 			writer.println(word);
 		}
 		
-		System.out.println("Done. Written "+words.size()+" words in file " + OUTPUT_FILE);
+		System.out.println("Done. Written "+words.size()+" words in file " + outputFile);
 		
 		writer.flush();
 		writer.close();
