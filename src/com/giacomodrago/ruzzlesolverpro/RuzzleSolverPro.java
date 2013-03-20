@@ -496,7 +496,8 @@ public final class RuzzleSolverPro {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			if (e.getKeyCode() == KeyEvent.VK_SPACE || 
+					e.getKeyCode() == KeyEvent.VK_ENTER) {
 				robot.keyPress(KeyEvent.VK_DOWN);
 			}
 		}
