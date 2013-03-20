@@ -10,6 +10,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DictionaryBuilder {
 
@@ -39,12 +41,16 @@ public class DictionaryBuilder {
 			String word;
 			while ((word = br.readLine()) != null) {
 				word = word.trim().toLowerCase(); // Word to lower case
-				// Replace ß (for German)
-				word = word.replaceAll("ß", "ss");
+				word = processGermanReplacements(word);				
 				if (!word.isEmpty() && word.length() <= MAX_WORD_LENGTH && !words.contains(word)) {
 					// Remove dashes and apostrophes
 					word = word.replaceAll("['-]", "");
-					words.add(word);
+					if (containsOnlyLatinCharacters(word)) {
+						words.add(word);						
+					} else {
+						System.out.println("Warning: discarding '"+word+"'");
+					}
+					
 				}
 			}
 			br.close();
@@ -59,6 +65,27 @@ public class DictionaryBuilder {
 		writer.flush();
 		writer.close();
 
+	}
+
+	private static final Pattern pattern = Pattern.compile("^[a-z]+$");
+	
+	private static boolean containsOnlyLatinCharacters(String word) {
+		Matcher matcher = pattern.matcher(word);
+		return matcher.matches();
+	}
+
+	private static String processGermanReplacements(String word) {
+		
+		// Replace ß
+		word = word.replaceAll("ß", "ss");
+		
+		// Replace german special characters
+		word = word.replaceAll("ä", "ae");
+		word = word.replaceAll("ö", "oe"); 
+		word = word.replaceAll("ü", "ue");
+		
+		return word;
+		
 	}
 
 }
