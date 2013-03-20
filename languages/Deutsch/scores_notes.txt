@@ -4,6 +4,5 @@ and not tested:
 j	6
 p	4
 q	10
-w	3
 x	8
 y	10
