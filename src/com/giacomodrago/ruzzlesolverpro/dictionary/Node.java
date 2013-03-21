@@ -3,24 +3,26 @@ package com.giacomodrago.ruzzlesolverpro.dictionary;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class DictionaryNode {
+public class Node {
 
-	private final Character letter;
-	private final Map<Character, DictionaryNode> children;
-	private boolean wordEnding;
+	protected final Character letter;
+	protected Map<Character, Node> children;
+	protected boolean wordEnding;
 	
-	public DictionaryNode(Character letter) {
+	public Node(Character letter) {
 		this.letter = letter;
-		this.children = new TreeMap<Character, DictionaryNode>();
 	}
 
 	public Character getLetter() {
 		return letter;
 	}
 
-	public DictionaryNode addChild(Character letter) {
+	public Node addChild(Character letter) {
+		if (children == null) {
+			children = new TreeMap<Character, Node>();
+		}
 		if (!children.containsKey(letter)) {
-			DictionaryNode dictionaryNode = new DictionaryNode(letter);
+			Node dictionaryNode = new Node(letter);
 			children.put(dictionaryNode.getLetter(), dictionaryNode);
 			return dictionaryNode;
 		} else {			
@@ -28,7 +30,7 @@ public class DictionaryNode {
 		}
 	}
 	
-	public DictionaryNode getChild(Character letter) {
+	public Node getChild(Character letter) {
 		return children.get(letter);
 	}
 	

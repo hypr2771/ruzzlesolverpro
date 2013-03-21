@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Set;
 
 import com.giacomodrago.ruzzlesolverpro.dictionary.Dictionary;
-import com.giacomodrago.ruzzlesolverpro.dictionary.DictionaryNode;
+import com.giacomodrago.ruzzlesolverpro.dictionary.Node;
 
 class CellSolver implements Runnable {
 
@@ -30,7 +30,7 @@ class CellSolver implements Runnable {
 	@Override
 	public void run() {
 
-		DictionaryNode dictNode = dictionary.getRootNode().getChild(
+		Node dictNode = dictionary.getRootNode().getChild(
 				cell.getLetter());
 		LinkedList<Cell> currentPath = new LinkedList<Cell>();
 		currentPath.add(cell);
@@ -41,7 +41,7 @@ class CellSolver implements Runnable {
 	}
 	
 
-	protected void findPaths(ExtendedCell currentCell, DictionaryNode dictNode,
+	protected void findPaths(ExtendedCell currentCell, Node dictNode,
 			LinkedList<Cell> currentPath, Set<Cell> traversedCellsSet,
 			Collection<Path> paths) {
 
@@ -67,7 +67,7 @@ class CellSolver implements Runnable {
 		for (ExtendedCell nextCell : currentCell.getNeighbors()) {
 			if (!currentPath.contains(nextCell)) {
 				char nextLetter = nextCell.getLetter();
-				DictionaryNode nextDictNode = dictNode.getChild(nextLetter);
+				Node nextDictNode = dictNode.getChild(nextLetter);
 				if (nextDictNode != null) {
 					currentPath.add(nextCell);
 					traversedCellsSet.add(nextCell);

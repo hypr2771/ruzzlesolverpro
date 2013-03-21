@@ -15,9 +15,9 @@ class ExtendedCell extends Cell {
 	}
 
 	public ExtendedCell(Cell cell) {
-		this.setIndex(cell.getIndex());
-		this.setLetter(cell.getLetter());
-		this.setBonus(cell.getBonus());
+		setIndex(cell.getIndex());
+		setLetter(cell.getLetter());
+		setBonus(cell.getBonus());
 	}
 
 }

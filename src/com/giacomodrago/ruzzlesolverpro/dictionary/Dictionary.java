@@ -7,11 +7,11 @@ import java.io.InputStreamReader;
 
 public class Dictionary {
 
-	protected final DictionaryNode rootNode;
+	protected final Node rootNode;
 
 	public Dictionary(String filePath) throws IOException {
 
-		rootNode = new DictionaryNode(null);
+		rootNode = new Node(null);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				new FileInputStream(filePath)));
@@ -32,7 +32,7 @@ public class Dictionary {
 
 		word = word.toLowerCase();
 
-		DictionaryNode currentNode = rootNode;
+		Node currentNode = rootNode;
 		
 		for (int i = 0; i < word.length(); i++) {
 			char letter = word.charAt(i);
@@ -43,13 +43,13 @@ public class Dictionary {
 
 	}
 
-	public DictionaryNode getRootNode() {
+	public Node getRootNode() {
 		return rootNode;
 	}
 
-	public DictionaryNode find(String sequence) {
+	public Node find(String sequence) {
 		
-		DictionaryNode currentNode = rootNode;
+		Node currentNode = rootNode;
 		
 		for (int i = 0; i < sequence.length() && currentNode != null; i++) {
 			char letter = sequence.charAt(i);
