@@ -1,5 +1,6 @@
 package com.giacomodrago.ruzzlesolverpro.dictionary;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -8,6 +9,7 @@ public class Node {
 	protected final Character letter;
 	protected Map<Character, Node> children;
 	protected boolean wordEnding;
+	protected Node firstBorn;
 	
 	public Node(Character letter) {
 		this.letter = letter;
@@ -18,24 +20,49 @@ public class Node {
 	}
 
 	public Node addChild(Character letter) {
-		if (children == null) {
-			children = new TreeMap<Character, Node>();
+		
+		Node childNode = getChild(letter);
+		
+		if (childNode == null) {
+			childNode = new Node(letter);
+			if (firstBorn == null) {
+				firstBorn = childNode;
+			} else {
+				if (children == null) {
+					children = new TreeMap<Character, Node>();
+				} else if (!children.containsKey(firstBorn.getLetter())) {
+					children.put(firstBorn.getLetter(), firstBorn);
+				}
+				children.put(childNode.getLetter(), childNode);
+			}
 		}
-		if (!children.containsKey(letter)) {
-			Node dictionaryNode = new Node(letter);
-			children.put(dictionaryNode.getLetter(), dictionaryNode);
-			return dictionaryNode;
-		} else {			
-			return getChild(letter);
-		}
+		
+		return childNode;
+
 	}
 	
 	public Node getChild(Character letter) {
+		if (firstBorn != null && firstBorn.getLetter().equals(letter)) {
+			return firstBorn;
+		}
 		if (children == null) {
 			return null;
 		} else {
 			return children.get(letter);
 		}
+	}
+	
+	public Map<Character, Node> getChildren() {
+		Map<Character, Node> result;
+		if (children != null) {
+			result = children;
+		} else {
+			result = new TreeMap<Character, Node>();
+			if (firstBorn != null) {
+				result.put(firstBorn.getLetter(), firstBorn);
+			}
+		}
+		return Collections.unmodifiableMap(result);
 	}
 	
 	public boolean isWordEnding() {

@@ -8,11 +8,18 @@ import java.io.InputStreamReader;
 public class Dictionary {
 
 	protected final Node rootNode;
+	protected final DictionaryStatsListener statsListener;
 
-	public Dictionary(String filePath) throws IOException {
-
-		rootNode = new Node(null);
-
+	public Dictionary(String filePath, DictionaryStatsListener statsListener)
+			throws IOException {
+		
+		this.rootNode = new Node(null);
+		this.statsListener = statsListener;
+		
+		if (statsListener != null) {
+			statsListener.createdOrAccessedNode(rootNode);
+		}
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				new FileInputStream(filePath)));
 
@@ -25,7 +32,11 @@ public class Dictionary {
 		}
 
 		br.close();
-
+		
+	}
+	
+	public Dictionary(String filePath) throws IOException {
+		this(filePath, null);
 	}
 
 	public void add(String word) {
@@ -37,6 +48,9 @@ public class Dictionary {
 		for (int i = 0; i < word.length(); i++) {
 			char letter = word.charAt(i);
 			currentNode = currentNode.addChild(letter);
+			if (statsListener != null) {
+				statsListener.createdOrAccessedNode(currentNode);
+			}
 		}
 		
 		currentNode.setWordEnding(true);

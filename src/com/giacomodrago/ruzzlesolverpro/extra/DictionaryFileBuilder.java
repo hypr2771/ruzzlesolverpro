@@ -13,7 +13,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DictionaryBuilder {
+public class DictionaryFileBuilder {
 
 	private static final int MAX_WORD_LENGTH = 16;
 	
