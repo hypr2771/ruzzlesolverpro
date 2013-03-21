@@ -31,7 +31,11 @@ public class Node {
 	}
 	
 	public Node getChild(Character letter) {
-		return children.get(letter);
+		if (children == null) {
+			return null;
+		} else {
+			return children.get(letter);
+		}
 	}
 	
 	public boolean isWordEnding() {
