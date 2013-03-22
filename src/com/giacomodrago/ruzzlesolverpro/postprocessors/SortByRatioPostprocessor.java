@@ -8,9 +8,9 @@ import com.giacomodrago.ruzzlesolverpro.dictionary.Dictionary;
 import com.giacomodrago.ruzzlesolverpro.solver.Path;
 import com.giacomodrago.ruzzlesolverpro.solver.ScoreCalculator;
 
-public class SortByScorePostprocessor implements Postprocessor {
+public class SortByRatioPostprocessor implements Postprocessor {
 
-	private final static Comparator<Path> comparator = new PathScoreComparator();
+	private final static Comparator<Path> comparator = new PathRatioComparator();
 	
 	@Override
 	public void execute(Dictionary dictionary, ScoreCalculator scoreCalculator,
