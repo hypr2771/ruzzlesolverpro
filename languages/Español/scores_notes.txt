@@ -1,7 +1,6 @@
 The following letter scores are taken from http://en.wikipedia.org/wiki/Scrabble_letter_distributions#Spanish
 and not tested:
 h	4
-q	5
 w	10
 x	8
 y	4
