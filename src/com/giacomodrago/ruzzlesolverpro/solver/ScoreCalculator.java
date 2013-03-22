@@ -63,25 +63,11 @@ public class ScoreCalculator {
 				break;
 			}
 		}
-
-		switch (wordLength) {
-		case 9:
-			score += 25;
-			break;
-		case 8:
-			score += 20;
-			break;
-		case 7:
-			score += 15;
-			break;
-		case 6:
-			score += 10;
-			break;
-		case 5:
-			score += 5;
-			break;
+		
+		if (wordLength > 5) {
+			score += (wordLength - 4) * 5;
 		}
-
+		
 		return score;
 
 	}
