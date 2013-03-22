@@ -130,7 +130,8 @@ public class Solver {
 
 		// Run postprocessors
 		for (Postprocessor postprocessor : postprocessors) {
-			postprocessor.execute(dictionary, scoreCalculator, paths);
+			postprocessor.execute(gameSize, minWordLen, maxWordLen,
+					dictionary, scoreCalculator, paths);
 		}
 
 		return paths;

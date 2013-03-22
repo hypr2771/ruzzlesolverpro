@@ -16,11 +16,12 @@ public class HumanizePostprocessor implements Postprocessor {
 	protected static final int MEDIUM_WORD_MIN_LEN = 4;
 	protected static final int MEDIUM_WORD_MAX_LEN = 5;
 	protected static final double HUMANIZE_PROBABILITY = 0.25;
-	
+
 	@Override
-	public void execute(Dictionary dictionary, ScoreCalculator scoreCalculator,
+	public void execute(int gameSize, int minWordLen, int maxWordLen,
+			Dictionary dictionary, ScoreCalculator scoreCalculator,
 			List<Path> paths) {
-		
+
 		List<Path> mediumLengthWords = new ArrayList<Path>();
 		for (Path path : paths) {
 			if (isMediumLengthWord(path.getWord())) {
@@ -44,8 +45,7 @@ public class HumanizePostprocessor implements Postprocessor {
 			} else {
 				if (random.nextDouble() < HUMANIZE_PROBABILITY) {
 					while (mediumWordsIterator.hasNext()) {
-						Path mediumWordPath = mediumWordsIterator
-								.next();
+						Path mediumWordPath = mediumWordsIterator.next();
 						String mediumWord = mediumWordPath.getWord();
 						if (!insertedMediumWords.contains(mediumWord)) {
 							humanizedList.add(mediumWordPath);
@@ -59,7 +59,7 @@ public class HumanizePostprocessor implements Postprocessor {
 		}
 
 		paths.clear();
-		paths.addAll(humanizedList);		
+		paths.addAll(humanizedList);
 
 	}
 
@@ -67,5 +67,5 @@ public class HumanizePostprocessor implements Postprocessor {
 		int len = word.length();
 		return len >= MEDIUM_WORD_MIN_LEN && len <= MEDIUM_WORD_MAX_LEN;
 	}
-	
+
 }

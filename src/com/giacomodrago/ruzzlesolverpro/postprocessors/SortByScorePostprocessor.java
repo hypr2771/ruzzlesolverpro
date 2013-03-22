@@ -13,7 +13,8 @@ public class SortByScorePostprocessor implements Postprocessor {
 	private final static Comparator<Path> comparator = new PathScoreComparator();
 	
 	@Override
-	public void execute(Dictionary dictionary, ScoreCalculator scoreCalculator,
+	public void execute(int gameSize, int minWordLen, int maxWordLen,
+			Dictionary dictionary, ScoreCalculator scoreCalculator,
 			List<Path> paths) {
 		
 		Collections.sort(paths, comparator);

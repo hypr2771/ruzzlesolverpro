@@ -8,7 +8,9 @@ import com.giacomodrago.ruzzlesolverpro.solver.ScoreCalculator;
 
 public interface Postprocessor {
 
-	public void execute(Dictionary dictionary, ScoreCalculator scoreCalculator,
+	public void execute(int gameSize, int minWordLen, int maxWordLen,
+			Dictionary dictionary,
+			ScoreCalculator scoreCalculator,
 			List<Path> paths);
 	
 }
