@@ -18,17 +18,17 @@ class PathRatioComparator implements Comparator<Path> {
 				DecimalFormatSymbols.getInstance(Locale.US));
 	}
 
-	private final CostCalculator costCalculator;
-	
-	public PathRatioComparator(CostCalculator costCalculator) {
-		this.costCalculator = costCalculator;
-	}
+	private static final double POW_EXPONENT = 1.1;
 
 	@Override
 	public int compare(Path path1, Path path2) {
 		
-		double ratio1 = (double) path1.getScore() / costCalculator.calculateCost(path1);
-		double ratio2 = (double) path2.getScore() / costCalculator.calculateCost(path2);
+		double ratio1 = (double) path1.getScore() / 
+				Math.pow((double) path1.getTraversedCells().size(),
+						POW_EXPONENT);
+		double ratio2 = (double) path2.getScore() / 
+				Math.pow((double) path2.getTraversedCells().size(),
+						POW_EXPONENT);
 
 		path1.setAnnotation(decimalFormat.format(ratio1));
 		path2.setAnnotation(decimalFormat.format(ratio2));

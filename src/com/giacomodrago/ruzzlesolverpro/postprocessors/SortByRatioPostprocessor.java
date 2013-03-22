@@ -10,10 +10,7 @@ import com.giacomodrago.ruzzlesolverpro.solver.ScoreCalculator;
 
 public class SortByRatioPostprocessor implements Postprocessor {
 
-	private final static CostCalculator costCalculator = new LengthCostCalculator();
-
-	private final static Comparator<Path> comparator = new PathRatioComparator(
-			costCalculator);
+	private final static Comparator<Path> comparator = new PathRatioComparator();
 
 	@Override
 	public void execute(int gameSize, int minWordLen, int maxWordLen,
