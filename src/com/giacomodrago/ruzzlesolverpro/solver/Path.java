@@ -40,7 +40,7 @@ public class Path {
 	public void setAnnotation(String annotation) {
 		this.annotation = annotation;
 	}
-	
+
 	@Override
 	public String toString() {
 		String result = getWord();

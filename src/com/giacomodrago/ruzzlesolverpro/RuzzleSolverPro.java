@@ -441,7 +441,7 @@ public final class RuzzleSolverPro {
 
 	private void displayPath(Path path) {
 		clearColors();
-		currentWordLabel.setText(path.toString());
+		currentWordLabel.setText(path.getWord());
 		int counter = 0;
 		for (Cell node : path.getTraversedCells()) {
 			int index = node.getIndex();
