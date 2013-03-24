@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URI;
@@ -158,7 +159,18 @@ public final class RuzzleSolverPro {
 
 		// Set current language
 		String language = preferences.get("language", DEFAULT_LANGUAGE);
-		setLanguage(language);
+		try {
+			setLanguage(language);
+		} catch (FileNotFoundException ex1) {
+			// Try to set default language
+			try {
+				setLanguage(DEFAULT_LANGUAGE);
+			} catch (IOException ex2) {
+				throw new RuntimeException(ex2);
+			}
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
 
 		cells = new Cell[N_CELLS];
 		for (int index = 0; index < N_CELLS; index++) {
@@ -317,7 +329,7 @@ public final class RuzzleSolverPro {
 
 	}
 
-	private void setLanguage(String language) {
+	private void setLanguage(String language) throws IOException {
 
 		String languageDirectory = LANGUAGES_DIRECTORY + File.separator
 				+ language;
@@ -330,16 +342,12 @@ public final class RuzzleSolverPro {
 		// Unload previous dictionary to allow garbage collection
 		solver.setDictionary(null);
 		
-		Dictionary dictionary = null;
-		try {
-			long startTime = System.currentTimeMillis();
-			dictionary = new Dictionary(dictionaryFilePath);
-			long elapsedTime = System.currentTimeMillis() - startTime;
-			System.out.println("Loaded dictionary \"" + dictionaryFilePath
-					+ "\" in " + elapsedTime + " ms");
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		long startTime = System.currentTimeMillis();
+		Dictionary dictionary = new Dictionary(dictionaryFilePath);
+		long elapsedTime = System.currentTimeMillis() - startTime;
+		System.out.println("Loaded dictionary \"" + dictionaryFilePath
+				+ "\" in " + elapsedTime + " ms");
+		
 		ScoreCalculator scoreCalculator = new ScoreCalculator(scoresFilePath);
 
 		solver.setDictionary(dictionary);
@@ -488,7 +496,11 @@ public final class RuzzleSolverPro {
 			Cursor defaultCursor = window.getCursor();
 			window.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-			setLanguage(language);
+			try {
+				setLanguage(language);
+			} catch (IOException ex) {
+				throw new RuntimeException(ex);
+			}
 
 			window.setCursor(defaultCursor);
 
