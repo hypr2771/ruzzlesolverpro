@@ -1,9 +1,0 @@
-The following letter scores are taken from http://en.wikipedia.org/wiki/Scrabble_letter_distributions#Spanish
-and not tested:
-h	4
-w	10
-x	8
-y	4
-
-The following letter scores are completely unknown and replaced by a possible value:
-k	10
